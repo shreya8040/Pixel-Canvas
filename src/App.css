@@ -21,10 +21,11 @@
 }
 .title {
   font-size: 30px;
-  font-weight: bold;
+  
   margin-top: -40px;
   font-family: 'Pixelify Sans';
- background-color: rgb(251, 251, 251);
+
+  background-color: rgb(251, 251, 251);
   width: fit-content;
   padding: 5px;
   
