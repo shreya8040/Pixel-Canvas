@@ -53,8 +53,8 @@
   box-shadow: 1px 1px 3px grey;
   background: #f1f1f1;
   cursor: pointer;
-  margin-top: -80px;
-  margin-left: 10px;
+  margin-top: -10%;
+  margin-left: 2%;
   border-radius: 50%;
   border: #f1f1f1 solid 2px;
   text-align: end;
@@ -74,6 +74,8 @@
   font-size: 12px;
   margin-left: 28px;
   margin-top: 1px;
+  font-family: 'Pixelify Sans';
+  
     
 }
 .reset{
@@ -84,7 +86,7 @@ position: absolute;
   cursor: pointer;
   border-radius: 50%;
   margin-top: -30px;
-  margin-left: 10px;
+  margin-left: 2%;
   border: 2px solid white;
   box-shadow: 1px 1px 3px grey;
 }
@@ -96,8 +98,8 @@ position: absolute;
   cursor: pointer;
   background-image: url("https://i.ibb.co/hqQLQ4b/pen-line-svgrepo-com.png");
   background-size: cover;
-  margin-top: -450px;
-  margin-left: 10px;
+  margin-top: -35%;
+  margin-left: 2%;
   border: 2px solid white;
   box-shadow: 1px 1px 3px grey;
 }
@@ -112,8 +114,8 @@ position: absolute;
   background-image: url("https://i.ibb.co/rRXjkDRX/eraser-clean-svgrepo-com.png");
   background-size: cover;
   cursor: pointer;
-  margin-top: -400px;
-  margin-left: 10px;
+  margin-top: -31.2%;
+  margin-left: 2%;
   border: 2px solid white;
   box-shadow: 1px 1px 3px grey;
 }
@@ -122,15 +124,11 @@ position: absolute;
 }
 .colorwrap{
   
-  width: 200px;
-  height: 440px;
-  
-  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  cursor: text;
   margin-top: -37%;
-  
-  margin-left: 80%;
-  
-  
+  margin-left: 83%;
   
 }
 .undo {
@@ -140,8 +138,8 @@ position: absolute;
   background: #ffffff;
   background-image: url("https://i.ibb.co/kVB6nLFN/undo-left-svgrepo-com.png");
   background-size: cover; 
-  margin-top: -345px;
-  margin-left: 10px;
+  margin-top: -8%;
+  margin-left: 2%;
   border: 2px solid white;
   box-shadow: 1px 1px 3px grey;
   
@@ -154,10 +152,29 @@ position: absolute;
   background-image: url("https://i.ibb.co/4g3HKDJC/redo-svgrepo-com.png");
   background-size: cover;
   cursor: pointer;
-  margin-top: -295px;
-  margin-left: 10px;
+  margin-top: -4%;
+  margin-left: 2%;
   border: 2px solid white;
   box-shadow: 1px 1px 3px grey;
 }
-
-
+.dropper {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  
+  margin-top: -0.1%;
+  margin-left: 2%;
+  border: 2px solid white;
+  box-shadow: 1px 1px 3px grey;
+  
+}
+.dropper.active{
+  border: 2px solid #7fc6ef;
+}
+.compactwrap{
+  margin-left: 61%;
+  margin-top: -16.5%;
+  height: fit-content;
+  width: fit-content;
+}

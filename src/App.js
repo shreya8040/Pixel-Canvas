@@ -2,9 +2,9 @@
 import './App.css';
 import handlehover  from './glow';
 import { useState, useEffect } from 'react';
-import { ColorPicker, useColor } from "react-color-palette";
+import {  useColor } from "react-color-palette";
+import { ChromePicker,CompactPicker } from 'react-color';
 import "react-color-palette/dist/css/rcp.css";
-
 
 function App() {
   const cells = Array.from({ length: 1200} );
@@ -15,7 +15,7 @@ function App() {
   const [color, setColor] = useColor("hex", "#121212");
   const[history,sethistory]=useState([]);
   const [redostack, setRedostack] = useState([]);
-
+  const[dropper,setdropper]=useState(false);
       useEffect(() => {
       const initialSnapshot = Array.from(document.querySelectorAll(".cell"))
         .map(cell => cell.style.backgroundColor);
@@ -30,19 +30,17 @@ function App() {
           setRedostack([]);
         };
 
-       const handlemousedown = (e) =>{    
-                  
-        setIsDrawing(true);
-        handlehover(e,pen ? "pen" : "erase", color.hex);  
-        
-         
-        }
-        const handlemouseup = () =>{
+            const handlemousedown = (e) => {
+            if (dropper) return;   
+            setIsDrawing(true);
+            handlehover(e, pen ? "pen" : "erase", color.hex);
+          };
+          const handlemouseup = () =>{
           setIsDrawing(false);
           if (isdrawing) {
-    saveHistory();   // save the stroke snapshot
-  }
+          saveHistory();   // save the stroke snapshot
         }
+              }
         const handledraw = (e) =>{
           if(isdrawing){
             handlehover(e,pen ? "pen" : "erase", color.hex);
@@ -91,8 +89,34 @@ function App() {
       const handleleaveundo =(event) =>{
         event.target.style.backgroundColor = "white";
       }
-  
-  
+              function rgbtohex(rgb) {
+          const matches = rgb.match(/\d+/g);
+          if (!matches) return "#000000";  // IMPORTANT FIX
+          return (
+            "#" +
+            matches
+              .map(n => Number(n).toString(16).padStart(2, "0"))
+              .join("")
+          );
+        }
+            const handledropper = (event) => {
+            if (!dropper) return;   // ← dropper must be active
+
+            const rgb = window.getComputedStyle(event.target).backgroundColor;
+            const matches = rgb.match(/\d+/g);
+            if (!matches) return;
+
+            const [r, g, b] = matches.map(Number);
+            const hex = rgbtohex(rgb);
+
+            setColor({
+              hex: hex,
+              rgb: { r, g, b },
+              hsv: color.hsv
+            });
+
+            setdropper(false); // optional: turn off automatically after picking
+          };
 
   return (
     <div className="body">
@@ -103,10 +127,12 @@ function App() {
           <div 
             key={index}
             className="cell"
+            style={{ backgroundColor: "white" }} 
             draggable="false"
             onPointerUpCapture={handlemouseup}
             onPointerDown={handlemousedown}
             onPointerEnter={handledraw}
+            onClick={handledropper}
             >
            </div>
           ))}
@@ -115,7 +141,7 @@ function App() {
       <button className='reset' onPointerEnter={handleresethover} onPointerLeave={handleresetleave} onClick={clearGrid}><div className='gridtext'>Reset</div></button>
       <button className={`pen ${pen?"active":""}`}onClick={()=>setpen(!pen) & seterase(!erase) & setColor(color) }><div className='gridtext'>Pen</div></button>
       <button className={`erase ${erase?"active":""}`}onClick={()=>seterase(!erase) & setpen(!pen)}><div className='gridtext'>Eraser</div></button>
-      <div className='colorwrap'><ColorPicker
+      <div className='colorwrap'><ChromePicker
                 width={150}
                 height={170}
                 color={color}
@@ -123,7 +149,13 @@ function App() {
               /></div>
       <button className='undo' onClick={undo} onMouseEnter={handlehoverundo} onMouseLeave={handleleaveundo}><div className='gridtext'>Undo</div></button>
       <button className='redo' onClick={redo}onMouseEnter={handlehoverundo} onMouseLeave={handleleaveundo}><div className='gridtext'>Redo</div></button>
+      <button className={`dropper ${dropper?"active":""}`}onClick={()=>setdropper(!dropper)} ><div className='gridtext'>Color Dropper</div></button>
+      <div className='compactwrap'><CompactPicker
+            color={color.hex}
+             onChange={(c) => setColor({ ...color, hex: c.hex })}
+      /></div>
       </div>
+      
     </div>
   );
 }
