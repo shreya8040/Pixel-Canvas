@@ -117,6 +117,31 @@ function App() {
 
             setdropper(false); // optional: turn off automatically after picking
           };
+       /* function filltool(startindex, fillcolor) {
+          const cells = document.querySelectorAll(".cell");
+          const origincolor= cells[startindex].style.backgroundColor;
+          if (origincolor === fillcolor) return; 
+
+        const col = 40;
+        const rows = 30;
+        const pixelCount = col * rows;
+        const queue = [startindex];
+        while(queue.length>0{
+          const index = queue.shift();
+          if(cells[index].style.backgroundColor === origincolor) 
+          {
+            cells[index].style.backgroundColor = fillcolor;
+            const up =i-col;
+            const down = i+col;
+            const left = (i % col !==0) ? i-1 : -1;
+            const right = (i % col !== col-1) ? i+1 : -1;
+            if(up >=0) queue.push (up);
+            if(down < pixelCount) queue.push (down);
+            if(left !== -1) queue.push (left);
+            if(right !== -1) queue.push (right);
+          }
+        })*/
+        
 
   return (
     <div className="body">
