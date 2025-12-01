@@ -179,7 +179,7 @@ function App() {
             color={color.hex}
              onChange={(c) => setColor({ ...color, hex: c.hex })}
       /></div>
-      <div className='save'>Save as: <button></button></div>
+      <div className='save'>Save as : <button className='png'>PNG</button></div>
       </div>
       
     </div>

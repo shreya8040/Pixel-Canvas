@@ -187,3 +187,24 @@ position: absolute;
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 1px 1px 3px grey;
 }
+.save{
+  position: fixed;
+  margin-left: 68%;
+  margin-top: 24.5%;
+  height: fit-content;
+  width: fit-content;
+  font-family: 'Pixelify Sans';
+  font-size: 25px;
+}
+.png{
+  position: absolute;
+  width: 70px;
+  height: 30px;
+  margin-left: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 1px 1px 3px grey;
+  font-family: 'Pixelify Sans';
+  font-size: 20px;
+}
