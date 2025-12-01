@@ -84,7 +84,7 @@ function App() {
           });
       }
       const handlehoverundo = (event) => {
-        event.target.style.backgroundColor = "#7fc6ef";
+        event.target.style.backgroundColor = "#9fd4f3";
       }
       const handleleaveundo =(event) =>{
         event.target.style.backgroundColor = "white";
@@ -117,7 +117,7 @@ function App() {
 
             setdropper(false); // optional: turn off automatically after picking
           };
-       /* function filltool(startindex, fillcolor) {
+        function filltool(startindex, fillcolor) {
           const cells = document.querySelectorAll(".cell");
           const origincolor= cells[startindex].style.backgroundColor;
           if (origincolor === fillcolor) return; 
@@ -126,7 +126,7 @@ function App() {
         const rows = 30;
         const pixelCount = col * rows;
         const queue = [startindex];
-        while(queue.length>0{
+        while(queue.length>0){
           const index = queue.shift();
           if(cells[index].style.backgroundColor === origincolor) 
           {
@@ -140,9 +140,9 @@ function App() {
             if(left !== -1) queue.push (left);
             if(right !== -1) queue.push (right);
           }
-        })*/
+        }
         
-
+      }
   return (
     <div className="body">
     <div className="App" onMouseUp={handlemouseup}>
@@ -174,11 +174,12 @@ function App() {
               /></div>
       <button className='undo' onClick={undo} onMouseEnter={handlehoverundo} onMouseLeave={handleleaveundo}><div className='gridtext'>Undo</div></button>
       <button className='redo' onClick={redo}onMouseEnter={handlehoverundo} onMouseLeave={handleleaveundo}><div className='gridtext'>Redo</div></button>
-      <button className={`dropper ${dropper?"active":""}`}onClick={()=>setdropper(!dropper)} ><div className='gridtext'>Color Dropper</div></button>
+      <button className={`dropper ${dropper?"active":""}`}onClick={()=>setdropper(!dropper)} ><div className='gridtext'>Dropper</div></button>
       <div className='compactwrap'><CompactPicker
             color={color.hex}
              onChange={(c) => setColor({ ...color, hex: c.hex })}
       /></div>
+      <div className='save'>Save as: <button></button></div>
       </div>
       
     </div>
