@@ -164,7 +164,7 @@ function App() {
       </div>
       <button className={`toggle1 ${checked?"active":""}`}onClick={()=>setchecked(!checked)}> <div className='gridtext'>Grid</div> </button>
       <button className='reset' onPointerEnter={handleresethover} onPointerLeave={handleresetleave} onClick={clearGrid}><div className='gridtext'>Reset</div></button>
-      <button className={`pen ${pen?"active":""}`}onClick={()=>setpen(!pen) & seterase(!erase) & setColor(color) }><div className='gridtext'>Pen</div></button>
+      <button className={`pen ${pen?"active":""}`}onClick={()=>setpen(!pen) & seterase(!erase) & setColor(color) }><div className='gridtext'>Pencil</div></button>
       <button className={`erase ${erase?"active":""}`}onClick={()=>seterase(!erase) & setpen(!pen)}><div className='gridtext'>Eraser</div></button>
       <div className='colorwrap'><ChromePicker
                 width={150}
