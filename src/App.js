@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import {  useColor } from "react-color-palette";
 import { ChromePicker,CompactPicker } from 'react-color';
 import "react-color-palette/dist/css/rcp.css";
+import html2canvas from "html2canvas";
 
 function App() {
   const cells = Array.from({ length: 1200} );
@@ -16,6 +17,7 @@ function App() {
   const[history,sethistory]=useState([]);
   const [redostack, setRedostack] = useState([]);
   const[dropper,setdropper]=useState(false);
+  const[fill,setfill]=useState(false);
       useEffect(() => {
       const initialSnapshot = Array.from(document.querySelectorAll(".cell"))
         .map(cell => cell.style.backgroundColor);
@@ -34,14 +36,17 @@ function App() {
             if (dropper) return;   
             setIsDrawing(true);
             handlehover(e, pen ? "pen" : "erase", color.hex);
+            if (fill) return; 
           };
           const handlemouseup = () =>{
           setIsDrawing(false);
           if (isdrawing) {
           saveHistory();   // save the stroke snapshot
+          
         }
               }
         const handledraw = (e) =>{
+          if (fill) return; 
           if(isdrawing){
             handlehover(e,pen ? "pen" : "erase", color.hex);
           }
@@ -117,11 +122,20 @@ function App() {
 
             setdropper(false); // optional: turn off automatically after picking
           };
-        function filltool(startindex, fillcolor) {
-          const cells = document.querySelectorAll(".cell");
-          const origincolor= cells[startindex].style.backgroundColor;
-          if (origincolor === fillcolor) return; 
+          const handlefill = (event) => {
+            if (!fill) return;
+            setpen(false);
+            seterase(false);
+            const cells = Array.from(document.querySelectorAll(".cell"));
+            const index1 = cells.indexOf(event.target);
+            filltool(index1, color.hex);
+            saveHistory();
+          }
 
+        function filltool(startindex, fillcolor) {
+        const cells = document.querySelectorAll(".cell");
+        let origincolor= cells[startindex].style.backgroundColor;
+          if (origincolor === fillcolor) return; 
         const col = 40;
         const rows = 30;
         const pixelCount = col * rows;
@@ -131,18 +145,67 @@ function App() {
           if(cells[index].style.backgroundColor === origincolor) 
           {
             cells[index].style.backgroundColor = fillcolor;
-            const up =i-col;
-            const down = i+col;
-            const left = (i % col !==0) ? i-1 : -1;
-            const right = (i % col !== col-1) ? i+1 : -1;
+            const up =index-col;
+            const down = index+col;
+            const left = (index % col !==0) ? index-1 : -1;
+            const right = (index % col !== col-1) ? index+1 : -1;
             if(up >=0) queue.push (up);
             if(down < pixelCount) queue.push (down);
             if(left !== -1) queue.push (left);
             if(right !== -1) queue.push (right);
+            
           }
         }
         
-      }
+        }
+        const savePNG =() => {
+          const gridimg = document.querySelector('.long1');
+            const cells = document.querySelectorAll(".cell");
+          if(!gridimg) return;
+          cells.forEach(c => c.style.border = "none");
+          html2canvas(gridimg , { backgroundColor: null, scale: 1 }).then((canvas) => {
+            const link = document.createElement('a');
+            link.download = 'pixel-canvas.png';
+            link.href = canvas.toDataURL();
+            link.click();
+             cells.forEach(c => {
+              c.style.border = checked ? "0.2px solid #d6d6d6" : "none";
+                });
+          });
+                }
+                const saveSVG = () => {
+          const cells = document.querySelectorAll(".cell");
+          if (!cells.length) return;
+
+          const cols = 40;        // number of columns in your grid
+          const pixelSize = 15;   // width/height of each cell in px (match your CSS)
+
+          const rows = Math.ceil(cells.length / cols);
+
+         let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${cols * pixelSize}" height="${rows * pixelSize}" shape-rendering="crispEdges">`;
+
+
+          cells.forEach((cell, i) => {
+            const color = window.getComputedStyle(cell).backgroundColor;
+            const x = (i % cols) * pixelSize;
+            const y = Math.floor(i / cols) * pixelSize;
+
+            svg += `<rect x="${x}" y="${y}" width="${pixelSize}" height="${pixelSize}" fill="${color}" />`;
+          });
+
+          svg += "</svg>";
+
+          const blob = new Blob([svg], { type: "image/svg+xml" });
+          const url = URL.createObjectURL(blob);
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "pixel-art.svg";
+          link.click();
+
+          URL.revokeObjectURL(url);
+        };
+
   return (
     <div className="body">
     <div className="App" onMouseUp={handlemouseup}>
@@ -157,16 +220,20 @@ function App() {
             onPointerUpCapture={handlemouseup}
             onPointerDown={handlemousedown}
             onPointerEnter={handledraw}
-            onClick={handledropper}
+               onClick={(e) => {
+                  if (dropper) handledropper(e);
+                  else if (fill) handlefill(e);
+              }}
             >
            </div>
           ))}
       </div>
       <button className={`toggle1 ${checked?"active":""}`}onClick={()=>setchecked(!checked)}> <div className='gridtext'>Grid</div> </button>
       <button className='reset' onPointerEnter={handleresethover} onPointerLeave={handleresetleave} onClick={clearGrid}><div className='gridtext'>Reset</div></button>
-      <button className={`pen ${pen?"active":""}`}onClick={()=>setpen(!pen) & seterase(!erase) & setColor(color) }><div className='gridtext'>Pencil</div></button>
-      <button className={`erase ${erase?"active":""}`}onClick={()=>seterase(!erase) & setpen(!pen)}><div className='gridtext'>Eraser</div></button>
+      <button className={`pen ${pen?"active":""}`}onClick={()=>setpen(true) & seterase(false) & setColor(color) & setfill(false) }><div className='gridtext'>Pencil</div></button>
+      <button className={`erase ${erase?"active":""}`}onClick={()=>seterase(true) & setpen(false) & setfill(false)}><div className='gridtext'>Eraser</div></button>
       <div className='colorwrap'><ChromePicker
+                backgroundColor={"#fbfbfb"}
                 width={150}
                 height={170}
                 color={color}
@@ -174,12 +241,18 @@ function App() {
               /></div>
       <button className='undo' onClick={undo} onMouseEnter={handlehoverundo} onMouseLeave={handleleaveundo}><div className='gridtext'>Undo</div></button>
       <button className='redo' onClick={redo}onMouseEnter={handlehoverundo} onMouseLeave={handleleaveundo}><div className='gridtext'>Redo</div></button>
-      <button className={`dropper ${dropper?"active":""}`}onClick={()=>setdropper(!dropper)} ><div className='gridtext'>Dropper</div></button>
-      <div className='compactwrap'><CompactPicker
+      <button className={`dropper ${dropper?"active":""}`}onClick={()=>setdropper(true) & setfill(false)} ><div className='gridtext'>Dropper</div></button>
+      <button className={`fill ${fill?"active":""}`}onClick={()=>setfill(!fill) & setColor(color) & setpen(false) & seterase(false) & setdropper(false)  }><div className='gridtext'>Fill</div></button>
+      <div className='compactwrap'><CompactPicker backgroundColor={"#fbfbfb"}
             color={color.hex}
              onChange={(c) => setColor({ ...color, hex: c.hex })}
       /></div>
-      <div className='save'>Save as : <button className='png'>PNG</button></div>
+      <div className='welcomenote'>Hello and welcome to Pixel Canvas!</div>
+      <div className='welcometext'>Taking inspiration from the OG MS-paint, Pixel Canvas is a tool designed to help you create cute pixel-themed icons and doodles</div>
+      <div className='save'>Save as : <button className='png' onClick={savePNG}>PNG</button></div>
+      <div className='save'>Save as : <button className='svg' onClick={saveSVG}>SVG</button></div>
+      <div className='suggest'>Got a suggestion? Drop them here<button className='suggestbutton'>↓</button></div>
+      <div className='suggestbox'><button className='sendbutton'></button></div>
       </div>
       
     </div>
