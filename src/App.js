@@ -192,9 +192,7 @@ function App() {
 
             svg += `<rect x="${x}" y="${y}" width="${pixelSize}" height="${pixelSize}" fill="${color}" />`;
           });
-
           svg += "</svg>";
-
           const blob = new Blob([svg], { type: "image/svg+xml" });
           const url = URL.createObjectURL(blob);
 
@@ -207,8 +205,8 @@ function App() {
         };
 
   return (
-    <div className="body">
-    <div className="App" onMouseUp={handlemouseup}>
+     <div className="body">
+     <div className="App" onMouseUp={handlemouseup}>
       <div className="title">Pixel Canvas</div>
       <div className={`long1 ${checked ? "grid-on" : "grid-off"}`} onMouseUp={handlemouseup}>
         {cells.map((_, index) => (
