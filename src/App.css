@@ -42,6 +42,15 @@
   text-align: right;
   width: fit-content;
 }
+.long1.export-transparent {
+  background-color: transparent !important;
+}
+
+.export-transparent .cell {
+  border: none !important;     
+  outline: none !important;
+}
+
 
 .cell {
    user-select: none;
@@ -301,15 +310,16 @@ position: absolute;
   position: fixed;
   margin-left: 77.7%;
   margin-top: 14.5%;
-  height: 100px;
+  height: 77px;
   width: 170px;
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 1px 1px 3px grey;
-  
+  font-family: 'Pixelify Sans';
+  font-size: 15px;
 }
 .sendbutton{
   border: none;
-  
+  cursor: pointer;
    height: 25px;
     width: 25px;
    background-color: transparent;
@@ -318,5 +328,26 @@ position: absolute;
    background-position: center;
    font-size: 20px;
    margin-left: 62%;
-   margin-top: 35%;
+   margin-top: 3%;
+}
+.fillnote{
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  position: fixed;
+  margin-left: 61%;
+  margin-top: 17%;
+  height: fit-content;
+  width: 150px;
+  font-family: 'Pixelify Sans';
+  font-size: 12px;
+  background-color: rgb(251, 251, 251);
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 1px 1px 3px grey;
+}
+input{
+  margin-top: 10px;
+  height: 30px;
+  width: 80%;
+  
 }

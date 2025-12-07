@@ -160,39 +160,59 @@ function App() {
         }
         const savePNG =() => {
           const gridimg = document.querySelector('.long1');
+           grid.classList.add("export-transparent");
             const cells = document.querySelectorAll(".cell");
           if(!gridimg) return;
           cells.forEach(c => c.style.border = "none");
           html2canvas(gridimg , { backgroundColor: null, scale: 1 }).then((canvas) => {
+            
             const link = document.createElement('a');
             link.download = 'pixel-canvas.png';
             link.href = canvas.toDataURL();
             link.click();
+             grid.classList.remove("export-transparent");
              cells.forEach(c => {
               c.style.border = checked ? "0.2px solid #d6d6d6" : "none";
                 });
           });
                 }
-                const saveSVG = () => {
+         const saveSVG = () => {
           const cells = document.querySelectorAll(".cell");
-          if (!cells.length) return;
+          const cols = 40;
+          const rows = 30;
+          const pixel = 15;
 
-          const cols = 40;        // number of columns in your grid
-          const pixelSize = 15;   // width/height of each cell in px (match your CSS)
-
-          const rows = Math.ceil(cells.length / cols);
-
-         let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${cols * pixelSize}" height="${rows * pixelSize}" shape-rendering="crispEdges">`;
-
+         
+          const colorMap = {};
 
           cells.forEach((cell, i) => {
             const color = window.getComputedStyle(cell).backgroundColor;
-            const x = (i % cols) * pixelSize;
-            const y = Math.floor(i / cols) * pixelSize;
 
-            svg += `<rect x="${x}" y="${y}" width="${pixelSize}" height="${pixelSize}" fill="${color}" />`;
+            // ignore white pixels = transparent
+            if (color === "rgb(255, 255, 255)") return;
+
+            const x = (i % cols) * pixel;
+            const y = Math.floor(i / cols) * pixel;
+
+            if (!colorMap[color]) colorMap[color] = "";
+
+            // append one square to the color's path
+            colorMap[color] += `M${x} ${y} h${pixel} v${pixel} h-${pixel} Z `;
           });
+
+          // Build final SVG
+          let svg = `<svg xmlns="http://www.w3.org/2000/svg" 
+            width="${cols * pixel}" height="${rows * pixel}" 
+            shape-rendering="crispEdges">`;
+
+          // One <path> per color
+          Object.entries(colorMap).forEach(([color, d]) => {
+            svg += `<path d="${d}" fill="${color}" />`;
+          });
+
           svg += "</svg>";
+
+          // Download file
           const blob = new Blob([svg], { type: "image/svg+xml" });
           const url = URL.createObjectURL(blob);
 
@@ -203,6 +223,7 @@ function App() {
 
           URL.revokeObjectURL(url);
         };
+
 
   return (
      <div className="body">
@@ -250,10 +271,10 @@ function App() {
       <div className='save'>Save as : <button className='png' onClick={savePNG}>PNG</button></div>
       <div className='save'>Save as : <button className='svg' onClick={saveSVG}>SVG</button></div>
       <div className='suggest'>Got a suggestion? Drop them here<button className='suggestbutton'>↓</button></div>
-      <div className='suggestbox'><button className='sendbutton'></button></div>
+      <div className='suggestbox'><form><input type="text" /></form>Press enter to send</div>
+      <div className='fillnote'>Note : Right now, the fill tool only works when the area to be filled is white</div>
       </div>
-      
-    </div>
+      </div>
   );
 }
  
