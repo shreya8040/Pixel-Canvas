@@ -160,7 +160,7 @@ function App() {
         }
         const savePNG =() => {
           const gridimg = document.querySelector('.long1');
-           grid.classList.add("export-transparent");
+           
             const cells = document.querySelectorAll(".cell");
           if(!gridimg) return;
           cells.forEach(c => c.style.border = "none");
@@ -170,7 +170,7 @@ function App() {
             link.download = 'pixel-canvas.png';
             link.href = canvas.toDataURL();
             link.click();
-             grid.classList.remove("export-transparent");
+             
              cells.forEach(c => {
               c.style.border = checked ? "0.2px solid #d6d6d6" : "none";
                 });
@@ -249,6 +249,7 @@ function App() {
       </div>
       <button className={`toggle1 ${checked?"active":""}`}onClick={()=>setchecked(!checked)}> <div className='gridtext'>Grid</div> </button>
       <button className='reset' onPointerEnter={handleresethover} onPointerLeave={handleresetleave} onClick={clearGrid}><div className='gridtext'>Reset</div></button>
+      
       <button className={`pen ${pen?"active":""}`}onClick={()=>setpen(true) & seterase(false) & setColor(color) & setfill(false) }><div className='gridtext'>Pencil</div></button>
       <button className={`erase ${erase?"active":""}`}onClick={()=>seterase(true) & setpen(false) & setfill(false)}><div className='gridtext'>Eraser</div></button>
       <div className='colorwrap'><ChromePicker
@@ -267,12 +268,13 @@ function App() {
              onChange={(c) => setColor({ ...color, hex: c.hex })}
       /></div>
       <div className='welcomenote'>Hello and welcome to Pixel Canvas!</div>
-      <div className='welcometext'>Taking inspiration from the OG MS-paint, Pixel Canvas is a tool designed to help you create cute pixel-themed icons and doodles</div>
+      <div className='welcometext'>Taking a lil inspiration from the OG MS-paint, Pixel Canvas is a tool designed to help you create cute pixel-themed icons and doodles</div>
       <div className='save'>Save as : <button className='png' onClick={savePNG}>PNG</button></div>
       <div className='save'>Save as : <button className='svg' onClick={saveSVG}>SVG</button></div>
       <div className='suggest'>Got a suggestion? Drop them here<button className='suggestbutton'>↓</button></div>
       <div className='suggestbox'><form><input type="text" /></form>Press enter to send</div>
       <div className='fillnote'>Note : Right now, the fill tool only works when the area to be filled is white</div>
+
       </div>
       </div>
   );

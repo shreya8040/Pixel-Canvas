@@ -42,14 +42,7 @@
   text-align: right;
   width: fit-content;
 }
-.long1.export-transparent {
-  background-color: transparent !important;
-}
 
-.export-transparent .cell {
-  border: none !important;     
-  outline: none !important;
-}
 
 
 .cell {
@@ -66,7 +59,7 @@
   box-shadow: 1px 1px 3px grey;
   background: #fbfbfb;
   cursor: pointer;
-  margin-top: -10%;
+  margin-top: -11%;
   margin-left: 2%;
   border-radius: 50%;
   border: #f1f1f1 solid 2px;
@@ -78,10 +71,12 @@
 }
 .grid-off .cell {
   border: none !important;
+  background-color: transparent !important;
 }
 
 .grid-on .cell {
   border: 0.2px solid #d6d6d6;
+  background-color: white;
 }
 .gridtext{
   font-size: 12px;
@@ -102,6 +97,19 @@ position: absolute;
   margin-left: 2%;
   border: 2px solid white;
   box-shadow: 1px 1px 3px grey;
+}
+.bgtoggle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  box-shadow: 1px 1px 3px grey;
+  background: #fbfbfb;
+  cursor: pointer;
+  margin-top: -7.5%;
+  margin-left: 2%;
+  border-radius: 50%;
+  border: #f1f1f1 solid 2px;
+  text-align: end;
 }
 .pen{
 position: absolute;
@@ -156,7 +164,7 @@ position: absolute;
   background-image: url("https://i.ibb.co/h1gnCNrf/icons8-undo-50-1.png");
   background-size:contain; 
   background-position: center;
-  margin-top: -8%;
+  margin-top: -9%;
   margin-left: 2%;
   
   border: 1px solid rgb(0, 0, 0);
@@ -172,7 +180,7 @@ position: absolute;
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  margin-top: -4%;
+  margin-top: -5.2%;
   margin-left: 2%;
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 1px 1px 3px grey;
@@ -185,7 +193,7 @@ position: absolute;
   background-image: url("https://i.ibb.co/Gfw308V7/icons8-dropper-50.png");
   background-size: cover;
   background-position: center;
-  margin-top: -0.1%;
+  margin-top: -1.3%;
   margin-left: 2%;
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 1px 1px 3px grey;
@@ -203,7 +211,7 @@ position: absolute;
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  margin-top: 3.8%;
+  margin-top: 2.6%;
   margin-left: 2%;
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 1px 1px 3px grey;
@@ -213,7 +221,7 @@ position: absolute;
 }
 .compactwrap{
   margin-left: 61%;
-  margin-top: -16.5%;
+  margin-top: -17.5%;
   height: fit-content;
   width: fit-content;
   border: 1px solid rgb(0, 0, 0);
@@ -271,14 +279,15 @@ position: absolute;
 .welcometext{
   padding-left: 10px;
   padding-right: 10px;
+  padding-top: 5px;
   text-align: center;
   position: fixed;
   margin-left: 61%;
   margin-top: 6%;
-  height: 130px;
+  height: 125px;
   width: 150px;
   font-family: 'Pixelify Sans';
-  font-size: 15px;
+  font-size: 14px;
   background-color: rgb(251, 251, 251);
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 1px 1px 3px grey;
