@@ -12,7 +12,7 @@ function handlehover(event, mode = "pen",color) {
      event.target.style.backgroundColor = hexToRgb(color);
   }
   if (mode === "erase") {
-    event.target.style.backgroundColor = "white";
+    event.target.style.backgroundColor = "transparent";
   }
 }   
 export default handlehover;

@@ -41,6 +41,7 @@
   position: relative;
   text-align: right;
   width: fit-content;
+  background-color: white;
 }
 
 
@@ -71,12 +72,15 @@
 }
 .grid-off .cell {
   border: none !important;
+  
+}
+.export-transparent {
   background-color: transparent !important;
 }
 
 .grid-on .cell {
   border: 0.2px solid #d6d6d6;
-  background-color: white;
+  
 }
 .gridtext{
   font-size: 12px;
@@ -166,7 +170,6 @@ position: absolute;
   background-position: center;
   margin-top: -9%;
   margin-left: 2%;
-  
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 1px 1px 3px grey;
   

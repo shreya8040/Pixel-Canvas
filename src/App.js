@@ -53,7 +53,7 @@ function App() {
         }
         const clearGrid = () => {
         document.querySelectorAll(".cell").forEach(cell => {
-          cell.style.backgroundColor = "white";  
+          cell.style.backgroundColor = "transparent";  
         });
         };
       const handleresethover = (event) => {
@@ -158,24 +158,104 @@ function App() {
         }
         
         }
-        const savePNG =() => {
-          const gridimg = document.querySelector('.long1');
-           
-            const cells = document.querySelectorAll(".cell");
-          if(!gridimg) return;
-          cells.forEach(c => c.style.border = "none");
-          html2canvas(gridimg , { backgroundColor: null, scale: 1 }).then((canvas) => {
-            
-            const link = document.createElement('a');
-            link.download = 'pixel-canvas.png';
-            link.href = canvas.toDataURL();
-            link.click();
-             
-             cells.forEach(c => {
-              c.style.border = checked ? "0.2px solid #d6d6d6" : "none";
-                });
+         function getDrawingBounds() {
+          const cells = document.querySelectorAll(".cell");
+          const cols = 40;
+
+          let minRow = Infinity, maxRow = -Infinity;
+          let minCol = Infinity, maxCol = -Infinity;
+
+          cells.forEach((cell, i) => {
+            const color = window.getComputedStyle(cell).backgroundColor;
+
+            // Identify non-background pixels
+            if (color !== "rgb(255, 255, 255)") {
+              const row = Math.floor(i / cols);
+              const col = i % cols;
+
+              minRow = Math.min(minRow, row);
+              maxRow = Math.max(maxRow, row);
+              minCol = Math.min(minCol, col);
+              maxCol = Math.max(maxCol, col);
+            }
           });
+
+          // If nothing drawn, return full canvas bounds
+          if (minRow === Infinity) {
+            return { minRow: 0, maxRow: 29, minCol: 0, maxCol: 39 };
+          }
+
+          return { minRow, maxRow, minCol, maxCol };
+        }
+
+           const savePNG = () => {
+            const grid = document.querySelector(".long1");
+            if (!grid) return;
+
+            const cells = document.querySelectorAll(".cell");
+
+            
+            grid.classList.add("export-transparent");
+            cells.forEach(c => (c.style.border = "none"));
+
+            html2canvas(grid, { backgroundColor: null, scale: 1 }).then((canvas) => {
+              const ctx = canvas.getContext("2d");
+              const { width, height } = canvas;
+
+              const imgData = ctx.getImageData(0, 0, width, height);
+              const data = imgData.data;
+
+              let minX = width, minY = height, maxX = 0, maxY = 0;
+
+               for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                  const idx = (y * width + x) * 4;
+                  const alpha = data[idx + 3];
+
+                  if (alpha !== 0) {
+                    if (x < minX) minX = x;
+                    if (y < minY) minY = y;
+                    if (x > maxX) maxX = x;
+                    if (y > maxY) maxY = y;
+                  }
                 }
+              }
+
+              if (minX > maxX || minY > maxY) {
+                alert("Nothing to save!");
+                return;
+              }
+
+              const croppedWidth = maxX - minX + 1;
+              const croppedHeight = maxY - minY + 1;
+
+              const croppedCanvas = document.createElement("canvas");
+              const croppedCtx = croppedCanvas.getContext("2d");
+
+              croppedCanvas.width = croppedWidth;
+              croppedCanvas.height = croppedHeight;
+
+              croppedCtx.putImageData(
+                ctx.getImageData(minX, minY, croppedWidth, croppedHeight),
+                0,
+                0
+              );
+
+             
+              const link = document.createElement("a");
+              link.download = "pixel-canvas.png";
+              link.href = croppedCanvas.toDataURL();
+              link.click();
+
+              grid.classList.remove("export-mode");
+          });
+
+         
+          cells.forEach(c => (c.style.border = "0.2px solid #d6d6d6"));
+        };
+
+
+
          const saveSVG = () => {
           const cells = document.querySelectorAll(".cell");
           const cols = 40;
@@ -234,7 +314,7 @@ function App() {
           <div 
             key={index}
             className="cell"
-            style={{ backgroundColor: "white" }} 
+            style={{ backgroundColor: "transparent" }}
             draggable="false"
             onPointerUpCapture={handlemouseup}
             onPointerDown={handlemousedown}
@@ -249,7 +329,6 @@ function App() {
       </div>
       <button className={`toggle1 ${checked?"active":""}`}onClick={()=>setchecked(!checked)}> <div className='gridtext'>Grid</div> </button>
       <button className='reset' onPointerEnter={handleresethover} onPointerLeave={handleresetleave} onClick={clearGrid}><div className='gridtext'>Reset</div></button>
-      
       <button className={`pen ${pen?"active":""}`}onClick={()=>setpen(true) & seterase(false) & setColor(color) & setfill(false) }><div className='gridtext'>Pencil</div></button>
       <button className={`erase ${erase?"active":""}`}onClick={()=>seterase(true) & setpen(false) & setfill(false)}><div className='gridtext'>Eraser</div></button>
       <div className='colorwrap'><ChromePicker
