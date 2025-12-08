@@ -18,6 +18,7 @@ function App() {
   const [redostack, setRedostack] = useState([]);
   const[dropper,setdropper]=useState(false);
   const[fill,setfill]=useState(false);
+  const[suggestion,setSuggestion]=useState("");
       useEffect(() => {
       const initialSnapshot = Array.from(document.querySelectorAll(".cell"))
         .map(cell => cell.style.backgroundColor);
@@ -256,43 +257,68 @@ function App() {
 
 
 
-         const saveSVG = () => {
+        const saveSVG = () => {
           const cells = document.querySelectorAll(".cell");
           const cols = 40;
           const rows = 30;
           const pixel = 15;
 
-         
           const colorMap = {};
+          let minCol = Infinity, minRow = Infinity;
+          let maxCol = -Infinity, maxRow = -Infinity;
 
+          // PASS 1: Scan all cells and build path data + find bounding box
           cells.forEach((cell, i) => {
             const color = window.getComputedStyle(cell).backgroundColor;
 
-            // ignore white pixels = transparent
-            if (color === "rgb(255, 255, 255)") return;
+            // Skip white → transparent
+            if (color === "rgb(255, 255, 255)" || color === "rgba(0, 0, 0, 0)") return;
 
-            const x = (i % cols) * pixel;
-            const y = Math.floor(i / cols) * pixel;
+            const col = i % cols;
+            const row = Math.floor(i / cols);
+
+            // Track bounds
+            minCol = Math.min(minCol, col);
+            maxCol = Math.max(maxCol, col);
+            minRow = Math.min(minRow, row);
+            maxRow = Math.max(maxRow, row);
 
             if (!colorMap[color]) colorMap[color] = "";
 
-            // append one square to the color's path
+            const x = col * pixel;
+            const y = row * pixel;
+
+            // Add one pixel square to this color's path
             colorMap[color] += `M${x} ${y} h${pixel} v${pixel} h-${pixel} Z `;
           });
 
-          // Build final SVG
-          let svg = `<svg xmlns="http://www.w3.org/2000/svg" 
-            width="${cols * pixel}" height="${rows * pixel}" 
-            shape-rendering="crispEdges">`;
+          
+          if (minCol === Infinity) {
+            alert("Nothing to save!");
+            return;
+          }
 
-          // One <path> per color
+          // Compute crop size
+          const cropX = minCol * pixel;
+          const cropY = minRow * pixel;
+          const cropWidth = (maxCol - minCol + 1) * pixel;
+          const cropHeight = (maxRow - minRow + 1) * pixel;
+
+          
+          let svg = `
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="${cropWidth}" height="${cropHeight}"
+                viewBox="${cropX} ${cropY} ${cropWidth} ${cropHeight}"
+                shape-rendering="crispEdges">
+          `;
+
           Object.entries(colorMap).forEach(([color, d]) => {
             svg += `<path d="${d}" fill="${color}" />`;
           });
 
-          svg += "</svg>";
+          svg += `</svg>`;
 
-          // Download file
+          // Download
           const blob = new Blob([svg], { type: "image/svg+xml" });
           const url = URL.createObjectURL(blob);
 
@@ -303,7 +329,24 @@ function App() {
 
           URL.revokeObjectURL(url);
         };
+        const sendSuggestion = async(event) =>{
+          event.preventDefault();
+          if(suggestion.trim() ==="") return;
+          try{
+            await fetch("http://localhost:5000/suggest", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text: suggestion }),
+            });
+            alert("Suggestion sent! Thank you.");
+            setSuggestion("");
 
+          }
+          catch(error){
+            console.error("Error sending suggestion:", error);
+            alert("Failed to send suggestion. Please try again later.");
+          }
+        };
 
   return (
      <div className="body">
@@ -351,7 +394,10 @@ function App() {
       <div className='save'>Save as : <button className='png' onClick={savePNG}>PNG</button></div>
       <div className='save'>Save as : <button className='svg' onClick={saveSVG}>SVG</button></div>
       <div className='suggest'>Got a suggestion? Drop them here<button className='suggestbutton'>↓</button></div>
-      <div className='suggestbox'><form><input type="text" /></form>Press enter to send</div>
+     <div className='suggestbox'> <form onSubmit={sendSuggestion}><input type="text" value={suggestion} onChange={(e) => setSuggestion(e.target.value)} placeholder="I think..." />
+  </form>
+  Press enter to send
+</div>
       <div className='fillnote'>Note : Right now, the fill tool only works when the area to be filled is white</div>
 
       </div>
