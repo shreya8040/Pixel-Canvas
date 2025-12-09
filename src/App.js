@@ -399,7 +399,7 @@ function App() {
   Press enter to send
 </div>
       <div className='fillnote'>Note : Right now, the fill tool only works when the area to be filled is white</div>
-
+       <div className='gridnote'> You can toggle the grid back on after export</div>
       </div>
       </div>
   );
