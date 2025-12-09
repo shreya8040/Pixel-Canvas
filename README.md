@@ -1,5 +1,5 @@
 Tech is a field that's always evolving. And that's what makes it so fascinating to me and people all around the world who are into tech.
-Slick apps and neat websites are always being churned out and that's mostly a good thing- specially in the creative genre- since they enable artists and creators to do more, better and explore more ways of creative expression <img width="24" height="25" alt="pixel-canvas (12)" src="https://github.com/user-attachments/assets/7a8937e6-c108-4f4d-bbf7-72bbaee233c0" />
+Slick apps and neat websites are always being churned out and that's mostly a good thing- specially in the creative genre- since they enable artists and creators to do more better and explore more ways of creative expression <img width="24" height="25" alt="pixel-canvas (12)" src="https://github.com/user-attachments/assets/7a8937e6-c108-4f4d-bbf7-72bbaee233c0" />
 
 
 But once in a while it's kinda refreshing to turn back and look at some of the old tech - the ones that helped us get started- a.k.a the OG tech stuff.
