@@ -333,7 +333,7 @@ function App() {
           event.preventDefault();
           if(suggestion.trim() ==="") return;
           try{
-            await fetch("http://localhost:5000/suggest", {
+            await fetch("https://pixel-canvas-backend-production.up.railway.app/", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ text: suggestion }),
