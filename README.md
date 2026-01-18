@@ -1,3 +1,10 @@
+**Project type:** `Personal`
+
+**Goal:** 
+_To create a fun app with a hint of the OG paint tool_
+
+
+
 Tech is a field that's constantly evolving. And that's what makes it so fascinating to me and people all around the world who are into tech.
 Slick apps and neat websites are always being churned out and that's mostly a good thing- specially in the creative genre- since they enable artists and creators to do more better and explore more ways of creative expression <img width="24" height="25" alt="pixel-canvas (12)" src="https://github.com/user-attachments/assets/7a8937e6-c108-4f4d-bbf7-72bbaee233c0" />
 
@@ -7,3 +14,9 @@ So what started out as a vague idea for a section that was gonna be part of my p
 
 
 Taking a lil inspiration for the UI from the OG MS-Paint, it has all the basic tools to draw and color in a grid canvas and so Pixel canvas can be used to whip up pixel themed retro looking icons, doodles and mini drawings that are right now trending and as far as I've seen , part of many apps and portfolios on the internet.
+
+
+
+
+
+
