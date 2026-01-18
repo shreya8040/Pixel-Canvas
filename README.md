@@ -20,6 +20,9 @@ So what started out as a vague idea for a section that was gonna be part of my p
 >  Taking a lil inspiration for the UI from the OG MS-Paint, it has all the basic tools to draw and color in a grid canvas and so Pixel canvas can be used to whip up pixel themed retro looking icons, doodles and mini drawings that are right now trending and as far as I've seen , part of many apps and portfolios on the internet.
 
 `UI:`
+
+
+
 <img width="960" height="448" alt="image" src="https://github.com/user-attachments/assets/7c567671-9371-43c7-99b2-069c4e28e2b5" />
 
 
