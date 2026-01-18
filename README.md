@@ -33,12 +33,7 @@ So what started out as a vague idea for a section that was gonna be part of my p
 `Samples:`
 
 
-<img width="244" height="176" alt="{A2E9FEC2-933D-40E2-9D04-A445E5070BDD}" src="https://github.com/user-attachments/assets/cd67085b-c6b8-4291-ba7f-edbf9600216e" />
-
-
-
-
-<img width="577" height="433" alt="sun" src="https://github.com/user-attachments/assets/4ad57e93-c885-44fa-9173-599a25517eb4" />   <img width="375" height="285" alt="pixel-canvas (15)" src="https://github.com/user-attachments/assets/bbc7508b-45c0-4daa-ba02-90d68dacbe98" />
+<img width="244" height="176" alt="{A2E9FEC2-933D-40E2-9D04-A445E5070BDD}" src="https://github.com/user-attachments/assets/cd67085b-c6b8-4291-ba7f-edbf9600216e" />  <img width="288" height="216" alt="sun" src="https://github.com/user-attachments/assets/4ad57e93-c885-44fa-9173-599a25517eb4" />  <img width="187" height="142" alt="pixel-canvas (15)" src="https://github.com/user-attachments/assets/bbc7508b-45c0-4daa-ba02-90d68dacbe98" />
 
 
 
