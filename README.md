@@ -10,7 +10,7 @@ _To create a fun pixel doodling app with a hint of the OG paint tool_
 ● Understood the logic behind exporting as png and svg
 
 >  Tech is a field that's constantly evolving. And that's what makes it so fascinating to me and people all around the world who are into tech.
-Slick apps and neat websites are always being churned out and that's mostly a good thing- specially in the creative genre- since they enable artists and creators to do more better and explore more ways of creative expression
+Slick apps and neat websites are always being churned out and that's mostly a good thing- specially in the creative genre- since they enable artists and creators to do more better and explore more ways of creative expression✨
 
 
 >  But once in a while it's kinda refreshing to turn back and look at some of the old tech - the ones that helped us get started- a.k.a the OG tech stuff.
@@ -24,6 +24,29 @@ So what started out as a vague idea for a section that was gonna be part of my p
 
 
 <img width="960" height="448" alt="image" src="https://github.com/user-attachments/assets/7c567671-9371-43c7-99b2-069c4e28e2b5" />
+
+
+
+
+
+
+`Samples:`
+
+
+<img width="244" height="176" alt="{A2E9FEC2-933D-40E2-9D04-A445E5070BDD}" src="https://github.com/user-attachments/assets/cd67085b-c6b8-4291-ba7f-edbf9600216e" />
+
+
+
+
+<img width="577" height="433" alt="sun" src="https://github.com/user-attachments/assets/4ad57e93-c885-44fa-9173-599a25517eb4" />   <img width="375" height="285" alt="pixel-canvas (15)" src="https://github.com/user-attachments/assets/bbc7508b-45c0-4daa-ba02-90d68dacbe98" />
+
+
+
+
+
+
+
+
 
 
 
