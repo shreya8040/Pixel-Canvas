@@ -4,7 +4,9 @@
 _To create a fun pixel doodling app with a hint of the OG paint tool_
 
 ● Made the frontend with React - found the built in color palettes and tinkered quite a bit before choosing the one that is in the final version- one that suited the UI best
-● Unnderstood very basic backend by implementeing a suggestion box through MVC, the tool being MOngoDB Cluster
+
+● Understood very basic backend by implementeing a suggestion box through MVC, the backend being MongoDB Cluster
+
 ● Understood the logic behind exporting as png and svg
 
 >  Tech is a field that's constantly evolving. And that's what makes it so fascinating to me and people all around the world who are into tech.
