@@ -3,13 +3,14 @@
 **Goal:** 
 _To create a fun pixel doodling app with a hint of the OG paint tool_
 
+
 ● Made the frontend with React - found the built in color palettes and tinkered quite a bit before choosing the one that is in the final version- one that suited the UI best
 
 ● Understood very basic backend by implementeing a suggestion box through MVC, the backend being MongoDB Cluster
 
 ● Understood the logic behind exporting as png and svg
 
-● Hosted fronetend on vercel
+● Hosted frontend on vercel and backend on railway  (https://github.com/shreya8040/Pixel-Canvas-Backend)
 
 >  Tech is a field that's constantly evolving. And that's what makes it so fascinating to me and people all around the world who are into tech.
 Slick apps and neat websites are always being churned out and that's mostly a good thing- specially in the creative genre- since they enable artists and creators to do more better and explore more ways of creative expression✨
